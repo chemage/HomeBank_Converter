@@ -1,5 +1,5 @@
-HbFieldPos;HbFieldName;OutFieldPos;OutFieldName;FieldFormat
-0         ;date       ;5          ;Valuta Date        ;%d-%m-%Y
-4         ;description;2          ;Description        ;
-5         ;amount     ;3          ;Credit/Debit Amount;
-8         ;balance    ;4          ;Balance            ;
+HbFieldPos;HbFieldName;InFieldPos;InFieldName;InFieldFormat
+0         ;date       ;5         ;Valuta Date        ;%d-%m-%Y
+4         ;description;2         ;Description        ;
+5         ;amount     ;3         ;Credit/Debit Amount;
+8         ;balance    ;4         ;Balance            ;
