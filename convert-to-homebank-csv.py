@@ -32,12 +32,13 @@ class Help(object):
         parser.add_argument('csvin', help='Input CSV file')
         parser.add_argument('csvout', help='Ouput CSV (for HomeBank)')
         parser.add_argument('csvdef', help='Definition file')
-        args = parser.parse_args(sys.argv[1:2])
-        if args.len == 0:
+        if len(sys.argv) == 1:
+            print('')
             print('Not enough arguments.')
+            print('')
             parser.print_help()
             exit(1)
-        self.args = parser.parse_args(sys.argv[2:])
+        self.args = parser.parse_args(sys.argv[1:])
 
 
 '''
@@ -111,7 +112,13 @@ Parse definition file.
 def parse_def(csvdict):
     newlist = []
     for row in csvdict:
-        newlist.append({'HbFieldPos': int(row['HbFieldPos']), 'HbFieldName': row['HbFieldName'], 'InFieldPos': int(row['InFieldPos']), 'InFieldName': row['InFieldName'], 'Amount': row['FieldFormat']})
+        newlist.append({
+            'HbFieldPos': int(row['HbFieldPos']),
+            'HbFieldName': row['HbFieldName'].strip(),
+            'InFieldPos': int(row['InFieldPos']),
+            'InFieldName': row['InFieldName'].strip(),
+            'InFieldFormat': row['InFieldFormat'].strip()
+        })
     sort_dictlist(newlist, field = 'HbFieldPos')
     return newlist
 
@@ -123,7 +130,15 @@ if __name__ == "__main__":
     help = Help()
 
     # open and filter transactions
-    with open(csvdef, newline='', encoding='latin1') as fcsvdef:
-        print(f"Raiffeisen CSV file: '{raifcsv}'.")
-        raifreader = csv.DictReader(csvdef, delimiter=help.args.raif_csv_delim)
-        raiflist = filter_dictlist(raifreader, help.args.iban)
+    with open(help.args.csvdef, newline='', encoding='utf8') as csvdef:
+        print(f"Definition CSV file: '{csvdef.name}'.")
+        defreader = csv.DictReader(csvdef, delimiter=';')
+        deflist = parse_def(defreader)
+
+    print(deflist)
+
+    # # open and filter transactions
+    # with open(help.args.csvdef, newline='', encoding='latin1') as csvdef:
+    #     print(f"Definition CSV file: '{csvdef}'.")
+    #     defreader = csv.DictReader(csvdef, delimiter=';')
+    #     deflist = parse_def(defreader)
