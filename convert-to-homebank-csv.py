@@ -29,9 +29,9 @@ class Help(object):
 
     def __init__(self):
         parser = argparse.ArgumentParser(description='Convert CSV file to HomeBank CSV file.')
-        parser.add_argument('csv-in', help='Input CSV file')
-        parser.add_argument('csv-out', help='Ouput CSV (for HomeBank)')
-        parser.add_argument('def', help='Definition file')
+        parser.add_argument('csvin', help='Input CSV file')
+        parser.add_argument('csvout', help='Ouput CSV (for HomeBank)')
+        parser.add_argument('csvdef', help='Definition file')
         args = parser.parse_args(sys.argv[1:2])
         if args.len == 0:
             print('Not enough arguments.')
@@ -90,10 +90,40 @@ def print_row(row, prefix="", suffix = f"{bcolors.ENDC}"):
         bookedat = row['BookedAt']
     print(f"{prefix}{bookedat} {float(row['Amount']):9.2f} - {row['Text']}{suffix}")
 
+'''
+Sort a dictionary.
+field: field to use for sorting
+'''
+def sort_dictlist(csvdict, field):
+    size = len(csvdict)
+    for i in range(size):
+        min_index = i
+        for j in range(i + 1, size):
+            if csvdict[min_index][field] > csvdict[j][field]:
+                min_index = j
+        temp = csvdict[i]
+        csvdict[i] = csvdict[min_index]
+        csvdict[min_index] = temp
+
+'''
+Parse definition file.
+'''
+def parse_def(csvdict):
+    newlist = []
+    for row in csvdict:
+        newlist.append({'HbFieldPos': int(row['HbFieldPos']), 'HbFieldName': row['HbFieldName'], 'InFieldPos': int(row['InFieldPos']), 'InFieldName': row['InFieldName'], 'Amount': row['FieldFormat']})
+    sort_dictlist(newlist, field = 'HbFieldPos')
+    return newlist
+
 
 if __name__ == "__main__":
     print(f"{bcolors.BOLD}Welcome to the transaction CSV to HomeBank CSV Convert Script{bcolors.ENDC}")
 
     # parse arguments according to action
     help = Help()
-    print(f"Action: {help.action}")
+
+    # open and filter transactions
+    with open(csvdef, newline='', encoding='latin1') as fcsvdef:
+        print(f"Raiffeisen CSV file: '{raifcsv}'.")
+        raifreader = csv.DictReader(csvdef, delimiter=help.args.raif_csv_delim)
+        raiflist = filter_dictlist(raifreader, help.args.iban)
