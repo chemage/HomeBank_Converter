@@ -4,6 +4,9 @@ Convert CSV to HomeBank import files
 ## Usage
 usage: convert-to-homebank-csv.py [-h] csv-in csv-out def
 
+...
+usage: convert-to-homebank-csv.py [-h] csv-in csv-out def
+
 Convert CSV file to HomeBank CSV file.
 
 positional arguments:
@@ -13,3 +16,4 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
+...
