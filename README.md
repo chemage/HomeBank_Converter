@@ -1,4 +1,4 @@
-# HomeBank_Converter
+# HomeBank CSV Converter
 Convert CSV to HomeBank import files
 
 ## Usage
