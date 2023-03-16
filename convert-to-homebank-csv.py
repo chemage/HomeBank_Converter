@@ -59,27 +59,27 @@ class bcolors:
 '''
 Convert from all date and date time sources to date object.
 '''
-def str2date(str):
+def str2date(str, format = '%Y-%m-%d'):
     try:
         return date.fromisoformat(str[0:10])
     except:
         pass
 
     try:
-        return datetime.strptime(str.replace(' ', ''), '%d.%m.%y').date()
+        return datetime.strptime(str.replace(' ', ''), format).date()
     except:
         pass
 
     try:
-        return datetime.strptime(str.replace(' ', ''), '%d.%m.%Y').date()
+        return datetime.strptime(str.replace(' ', ''), format).date()
     except:
         pass
 
 '''
 Convert date to string in HomeBank format.
 '''
-def date2str(dt):
-    return dt.strftime('%d-%m-%Y')
+def date2str(dt, format = '%d-%m-%Y'):
+    return dt.strftime(format)
 
 '''
 Print a transaction row.
