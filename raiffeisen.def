@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
-<Definition>
-    <Name>Raiffeisen</Name>
-    <CsvDelimiter>;<CsvDelimiter>
-    <CsvHeaderLine>1</CsvHeaderLine>
+<Definition Name="Raiffeisen" Encoding="latin1">
+    <CsvDefinitions Delimiter=";" HeaderLineCount="1" />
     <Fields>
         <Field>
             <HomeBank Position="0" Name="date" />
@@ -45,4 +43,4 @@
             <Source Position="4" Name="Balance" />
         </Field>
     </Fields>
-</xml>
+</Definition>
