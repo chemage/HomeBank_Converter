@@ -31,8 +31,8 @@ optional arguments:
 ### Example Raiffeisen Switzerland
 ```
 <?xml version="1.0" ?>
-<Definition Name="Raiffeisen" Encoding="latin1">
-    <CsvDefinitions Delimiter=";" HeaderLineCount="1" />
+<Definition Name="Raiffeisen">
+    <CsvDefinitions Delimiter=";" HeaderLineCount="1" Encoding="latin1" />
     <Fields>
         <Field>
             <HomeBank Position="0" Name="date" />

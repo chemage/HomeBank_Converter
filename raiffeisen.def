@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
-<Definition Name="Raiffeisen" Encoding="latin1">
-    <CsvDefinitions Delimiter=";" HeaderLineCount="1" />
+<Definition Name="Raiffeisen">
+    <CsvDefinitions Delimiter=";" HeaderLineCount="1" Encoding="latin1" />
     <Fields>
         <Field>
             <HomeBank Position="0" Name="date" />
-            <Source Position="5" Name="Valuta Date" />
+            <Source Position="5" Name="Valuta Date" Format="%d-%m-%Y" />
         </Field>
         <Field>
             <HomeBank Position="1" Name="paymode" />
