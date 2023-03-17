@@ -18,43 +18,55 @@ HbFieldPos;HbFieldName;InFieldPos;InFieldName;InFieldFormat
             <InName>Valuta Date</InName>
         </Field>
         <Field>
-            <HbPosition>0</HbPosition>
+            <HbPosition>1</HbPosition>
             <HbName>date</HbName>
             <InPosition>5</InPosition>
             <InName>Valuta Date</InName>
         </Field>
         <Field>
-            <HbPosition>0</HbPosition>
+            <HbPosition>2</HbPosition>
             <HbName>date</HbName>
             <InPosition>5</InPosition>
             <InName>Valuta Date</InName>
         </Field>
         <Field>
-            <HbPosition>0</HbPosition>
+            <HbPosition>3</HbPosition>
             <HbName>date</HbName>
             <InPosition>5</InPosition>
             <InName>Valuta Date</InName>
         </Field>
         <Field>
-            <HbPosition>0</HbPosition>
+            <HbPosition>4</HbPosition>
+            <HbName>description.1</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>4</HbPosition>
+            <HbName>description.2</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>5</HbPosition>
+            <HbName>amount</HbName>
+            <InPosition>3</InPosition>
+            <InName>Credit/Debit Amount</InName>
+        </Field>
+        <Field>
+            <HbPosition>6</HbPosition>
             <HbName>date</HbName>
             <InPosition>5</InPosition>
             <InName>Valuta Date</InName>
         </Field>
         <Field>
-            <HbPosition>0</HbPosition>
+            <HbPosition>7</HbPosition>
             <HbName>date</HbName>
             <InPosition>5</InPosition>
             <InName>Valuta Date</InName>
         </Field>
         <Field>
-            <HbPosition>0</HbPosition>
-            <HbName>date</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
-        </Field>
-        <Field>
-            <HbPosition>0</HbPosition>
+            <HbPosition>8</HbPosition>
             <HbName>date</HbName>
             <InPosition>5</InPosition>
             <InName>Valuta Date</InName>
