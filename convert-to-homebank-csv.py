@@ -19,6 +19,7 @@ import argparse
 import sys                             # for retrieving exception messages
 import re                              # for matching bank transaction text
 import csv                             # for importing CSV data (bank and gnucash transactions)
+import colorama                        # for command line coloring
 import xml.etree.ElementTree as et     # for handling XML
 from xml.sax.saxutils import quoteattr, unescape # for searching quoted text attributes with findall
 from xml.dom import minidom            # for exporting pretty XML
@@ -41,20 +42,89 @@ class Help(object):
         self.args = parser.parse_args(sys.argv[1:])
 
 
+class Definition(object):
+
+    def __init__(self, xmldef = None):
+        if (xmldef):
+            self.set_xmldef(xmldef)
+        else:
+            log(f"No XML provided. Can be added later.")
+
+    def set_xmldef(self, xmldef):
+        self.xmldef = xmldef
+        self.__load_def()
+        self.__parse_def()
+
+    '''
+    Load definition file from XML.
+    '''
+    def __load_def(self):
+        try:
+            self.__xmltree = et.parse(self.xmldef)
+            self.xmlroot = self.__xmltree.getroot()
+            log(f"Successfully loaded XML file '{self.xmldef}'.")
+        except:
+            log(f"Error: could not load XML file '{self.xmldef}'. {sys.exc_info()[0]}")
+
+    '''
+    Parse definition file.
+    '''
+    def __parse_def(self):
+        # Get CSV definitions
+        csvdefs = self.xmlroot.find('CsvDefinitions')
+        self.__delimiter   = csvdefs.get('Delimiter')
+        self.__headerlines = csvdefs.get('HeaderLineCount')
+        self.__encoding    = csvdefs.get('Encoding')
+
+        xmlfields = self.xmlroot.findall('.//Field')
+        print("List of fields")
+        for xmlfield in xmlfields:
+            print(xmlfield.find('HomeBank').get('Name'))
+
+    def __str__(self):
+        str = f"Definition => "
+        sep = ''
+        for attr in self.xmlroot.attrib:
+            str += f"{sep}{attr}: {self.xmlroot.get(attr)}"
+            sep = ', '
+
+        return str
+
+
 '''
-Colors for output
+Colors for output in linux/python
 '''
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKCYAN = '\033[96m'
     OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
+    WARN = '\033[93m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+'''
+
+'''
+def startswith(source, prefix, casesensitive = True):
+    if casesensitive:
+        return source[:len(prefix)] == prefix
+    else:
+        return source.lower()[:len(prefix)] == prefix
+
+'''
+Write log to console (and file ?)
+'''
+def log(msg):
+    if startswith(msg, "error", False):
+        print(f"{colorama.Fore.RED}{msg}")
+    elif startswith(msg, "warn", False):
+        print(f"{colorama.Fore.YELLOW}{msg}")
+    else:
+        print(f"{msg}")
+    print(colorama.Style.RESET_ALL)
 
 '''
 Convert from all date and date time sources to date object.
@@ -89,7 +159,7 @@ def print_row(row, prefix="", suffix = f"{bcolors.ENDC}"):
         bookedat = date2str(row['BookedAt'])
     except:
         bookedat = row['BookedAt']
-    print(f"{prefix}{bookedat} {float(row['Amount']):9.2f} - {row['Text']}{suffix}")
+    log(f"{prefix}{bookedat} {float(row['Amount']):9.2f} - {row['Text']}{suffix}")
 
 '''
 Sort a dictionary.
@@ -106,39 +176,24 @@ def sort_dictlist(csvdict, field):
         csvdict[i] = csvdict[min_index]
         csvdict[min_index] = temp
 
-'''
-Parse definition file.
-'''
-def parse_def(csvdict):
-    newlist = []
-    for row in csvdict:
-        newlist.append({
-            'HbFieldPos': int(row['HbFieldPos']),
-            'HbFieldName': row['HbFieldName'].strip(),
-            'InFieldPos': int(row['InFieldPos']),
-            'InFieldName': row['InFieldName'].strip(),
-            'InFieldFormat': row['InFieldFormat'].strip()
-        })
-    sort_dictlist(newlist, field = 'HbFieldPos')
-    return newlist
-
 
 if __name__ == "__main__":
-    print(f"{bcolors.BOLD}Welcome to the transaction CSV to HomeBank CSV Convert Script{bcolors.ENDC}")
+    log(f"Welcome to the transaction CSV to HomeBank CSV Convert Script")
+
+    # fix colorama for windows
+    if sys.platform == 'win32':
+        colorama.just_fix_windows_console()
 
     # parse arguments according to action
     help = Help()
 
-    # open and filter transactions
-    with open(help.args.csvdef, newline='', encoding='utf8') as csvdef:
-        print(f"Definition CSV file: '{csvdef.name}'.")
-        defreader = csv.DictReader(csvdef, delimiter=';')
-        deflist = parse_def(defreader)
+    # open definitions from XML
+    objdef = Definition(help.args.xmldef)
 
-    print(deflist)
+    print(objdef)
 
     # # open and filter transactions
     # with open(help.args.csvdef, newline='', encoding='latin1') as csvdef:
-    #     print(f"Definition CSV file: '{csvdef}'.")
+    #     log(f"Definition CSV file: '{csvdef}'.")
     #     defreader = csv.DictReader(csvdef, delimiter=';')
     #     deflist = parse_def(defreader)
