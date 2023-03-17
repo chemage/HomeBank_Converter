@@ -1,75 +1,48 @@
-HbFieldPos;HbFieldName;InFieldPos;InFieldName;InFieldFormat
-0         ;date       ;5         ;Valuta Date        ;%d-%m-%Y
-4         ;description;2         ;Description        ;
-5         ;amount     ;3         ;Credit/Debit Amount;
-8         ;balance    ;4         ;Balance            ;
-
-
-<xml>
+<?xml version="1.0" ?>
 <Definition>
     <Name>Raiffeisen</Name>
     <CsvDelimiter>;<CsvDelimiter>
     <CsvHeaderLine>1</CsvHeaderLine>
     <Fields>
         <Field>
-            <HbPosition>0</HbPosition>
-            <HbName>date</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="0" Name="date" />
+            <Source Position="5" Name="Valuta Date" />
         </Field>
         <Field>
-            <HbPosition>1</HbPosition>
-            <HbName>date</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="1" Name="paymode" />
+            <Source Position="-1" Name="N/A" />
         </Field>
         <Field>
-            <HbPosition>2</HbPosition>
-            <HbName>date</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="2" Name="info" />
+            <Source Position="-1" Name="N/A" />
         </Field>
         <Field>
-            <HbPosition>3</HbPosition>
-            <HbName>date</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="3" Name="payee" />
+            <Source Position="-1" Name="N/A" />
         </Field>
         <Field>
-            <HbPosition>4</HbPosition>
-            <HbName>description.1</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="4" Name="description.1" />
+            <Source Position="2" Name="description" />
         </Field>
         <Field>
-            <HbPosition>4</HbPosition>
-            <HbName>description.2</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="4" Name="description.2" />
+            <Source Position="2" Name="description" />
         </Field>
         <Field>
-            <HbPosition>5</HbPosition>
-            <HbName>amount</HbName>
-            <InPosition>3</InPosition>
-            <InName>Credit/Debit Amount</InName>
+            <HomeBank Position="5" Name="amount" />
+            <Source Position="3" Name="Credit/Debit Amount" />
         </Field>
         <Field>
-            <HbPosition>6</HbPosition>
-            <HbName>date</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="6" Name="category" />
+            <Source Position="-1" Name="N/A" />
         </Field>
         <Field>
-            <HbPosition>7</HbPosition>
-            <HbName>date</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="7" Name="account" />
+            <Source Position="-1" Name="N/A" />
         </Field>
         <Field>
-            <HbPosition>8</HbPosition>
-            <HbName>date</HbName>
-            <InPosition>5</InPosition>
-            <InName>Valuta Date</InName>
+            <HomeBank Position="8" Name="balance" />
+            <Source Position="4" Name="Balance" />
         </Field>
     </Fields>
 </xml>
