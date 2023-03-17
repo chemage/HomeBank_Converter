@@ -3,3 +3,61 @@ HbFieldPos;HbFieldName;InFieldPos;InFieldName;InFieldFormat
 4         ;description;2         ;Description        ;
 5         ;amount     ;3         ;Credit/Debit Amount;
 8         ;balance    ;4         ;Balance            ;
+
+
+<xml>
+<Definition>
+    <Name>Raiffeisen</Name>
+    <CsvDelimiter>;<CsvDelimiter>
+    <CsvHeaderLine>1</CsvHeaderLine>
+    <Fields>
+        <Field>
+            <HbPosition>0</HbPosition>
+            <HbName>date</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>0</HbPosition>
+            <HbName>date</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>0</HbPosition>
+            <HbName>date</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>0</HbPosition>
+            <HbName>date</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>0</HbPosition>
+            <HbName>date</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>0</HbPosition>
+            <HbName>date</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>0</HbPosition>
+            <HbName>date</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+        <Field>
+            <HbPosition>0</HbPosition>
+            <HbName>date</HbName>
+            <InPosition>5</InPosition>
+            <InName>Valuta Date</InName>
+        </Field>
+    </Fields>
+</xml>

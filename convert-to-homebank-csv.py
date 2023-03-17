@@ -19,9 +19,9 @@ import argparse
 import sys                             # for retrieving exception messages
 import re                              # for matching bank transaction text
 import csv                             # for importing CSV data (bank and gnucash transactions)
-# import xml.etree.ElementTree as et     # for handling XML
-# from xml.sax.saxutils import quoteattr, unescape # for searching quoted text attributes with findall
-# from xml.dom import minidom            # for exporting pretty XML
+import xml.etree.ElementTree as et     # for handling XML
+from xml.sax.saxutils import quoteattr, unescape # for searching quoted text attributes with findall
+from xml.dom import minidom            # for exporting pretty XML
 from datetime import date, datetime, timedelta
 
 
@@ -31,7 +31,7 @@ class Help(object):
         parser = argparse.ArgumentParser(description='Convert CSV file to HomeBank CSV file.')
         parser.add_argument('csvin', help='Input CSV file')
         parser.add_argument('csvout', help='Ouput CSV (for HomeBank)')
-        parser.add_argument('csvdef', help='Definition file')
+        parser.add_argument('xmldef', help='Definition file')
         if len(sys.argv) == 1:
             print('')
             print('Not enough arguments.')
