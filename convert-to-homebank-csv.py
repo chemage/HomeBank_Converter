@@ -1,17 +1,7 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python3
 # file : convert-to-homebank-csv.py
-# reconcile bank account with gnucash
-# Raiffeisen export:
-#   Fortune > Relevé de compte > Télécharger les données du compte
-#   Compte: Privé sociétaire
-#   Format: Excel CSV
-#   Données du compte: Période prédéfinie du relevé de compte > Relevé annuel
-#   Détails de la comptabilisation: sans détails
-# gnucash export:
-#   File > Export > Export Transactions to CSV
-#   Simple layout, semicolon separator
-#   Assets > Current assets > Bank Accounts > raif courant
-# requires python 3.8
+# transfrom a transaction file to a HomeBank CSV file.
+# requires python >= 3.10
 __author__ = "Marcel Gerber"
 __date__ = "2023-03-16"
 
@@ -59,10 +49,11 @@ class Definition(object):
     Load definition file from XML.
     '''
     def __load_def(self):
+        log(f"Load definitions from file '{self.xmldef}'.")
         try:
             self.__xmltree = et.parse(self.xmldef)
             self.xmlroot = self.__xmltree.getroot()
-            log(f"Successfully loaded XML file '{self.xmldef}'.")
+            # log(f"Successfully loaded XML file '{self.xmldef}'.")
         except:
             log(f"Error: could not load XML file '{self.xmldef}'. {sys.exc_info()[0]}")
 
@@ -72,15 +63,32 @@ class Definition(object):
     def __parse_def(self):
         # Get CSV definitions
         csvdefs = self.xmlroot.find('CsvDefinitions')
-        self.__delimiter   = csvdefs.get('Delimiter')
-        self.__headerlines = csvdefs.get('HeaderLineCount')
-        self.__encoding    = csvdefs.get('Encoding')
+        self.delim     = csvdefs.get('Delimiter')
+        self.headlines = csvdefs.get('HeaderLineCount')
+        self.encoding  = csvdefs.get('Encoding')
 
         xmlfields = self.xmlroot.findall('.//Field')
-        print("List of fields")
+        self.mapping = {}
         for xmlfield in xmlfields:
-            print(xmlfield.find('HomeBank').get('Name'))
+            hbrow     = xmlfield.find('HomeBank')
+            hbfield   = hbrow.get('Name').strip()
+            srcrow    = xmlfield.find('Source')
+            condition = xmlfield.find('Condition')
+            srcpos    = int(srcrow.get('Position'))
+            self.mapping[hbfield] = {
+                'hbpos':   int(hbrow.get('Position')),
+                'srcpos':  srcpos,
+                'srcname': srcrow.get('Name').strip(),
+                'format':  srcrow.get('Format')
+            }
+            if condition != None:
+                self.mapping[hbfield]['condition'] = {}
+                for attr in condition.attrib:
+                    self.mapping[hbfield]['condition'][attr] = condition.get(attr)
 
+    '''
+    Return string representation of object
+    '''
     def __str__(self):
         str = f"Definition => "
         sep = ''
@@ -89,6 +97,66 @@ class Definition(object):
             sep = ', '
 
         return str
+
+
+'''
+Source CSV object
+'''
+class Source(object):
+    def __init__(self, csvin, objdef):
+        self.csvin  = csvin
+        self.csvdef = objdef
+        self.__map  = objdef.mapping
+        self.data   = []
+        self.load_csv()
+
+    def load_csv(self):
+        log(f"Import from file '{self.csvin}'.")
+        with open(self.csvin, newline='', encoding=self.csvdef.encoding) as csvin:
+            csvreader = csv.DictReader(csvin, delimiter=self.csvdef.delim)
+            self.parse_source(csvreader)
+
+    def parse_source(self, csvreader):
+        for row in csvreader:
+            hbrow = {}
+            for hbfield in self.__map:
+                srcfield = self.__map[hbfield]['srcname']
+
+                # mapped fields
+                srcpos = self.__map[hbfield]['srcpos']
+                if srcpos >= 0:
+                    # condition
+                    if 'condition' in self.__map[hbfield]:
+                        condtype  = self.__map[hbfield]['condition']['Function']
+                        condtest  = self.__map[hbfield]['condition']['Test']
+                        print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
+                        if row[srcfield].find(condtest) >= 0:
+                            value = self.__map[hbfield]['condition']['ValueIfTrue']
+                        else:
+                            value = self.__map[hbfield]['condition']['ValueIfFalse']
+                    else:
+                        value  = row[srcfield]
+                    match hbfield:
+                        case 'date': value = str2date(value, self.__map[hbfield]['format'])
+
+                # unmapped fields will be empty
+                else:
+                    match hbfield:
+                        case 'payment': value = 0
+                        case _:         value = ''
+
+                hbrow[hbfield] = value
+            self.data.append(hbrow)
+        # print(self.data)
+
+    def export(self, csvout):
+        log(f"Export to file '{csvout}'.")
+        hbfields = self.__map.keys()
+        with open(csvout, 'w', newline='') as csvout:
+            csvwriter = csv.DictWriter(csvout, hbfields, delimiter = ';')
+            csvwriter.writeheader()
+            for row in self.data:
+                csvwriter.writerow(row)
 
 
 '''
@@ -119,12 +187,11 @@ Write log to console (and file ?)
 '''
 def log(msg):
     if startswith(msg, "error", False):
-        print(f"{colorama.Fore.RED}{msg}")
+        print(f"{colorama.Fore.RED}{msg}{colorama.Style.RESET_ALL}")
     elif startswith(msg, "warn", False):
-        print(f"{colorama.Fore.YELLOW}{msg}")
+        print(f"{colorama.Fore.YELLOW}{msg}{colorama.Style.RESET_ALL}")
     else:
         print(f"{msg}")
-    print(colorama.Style.RESET_ALL)
 
 '''
 Convert from all date and date time sources to date object.
@@ -189,11 +256,21 @@ if __name__ == "__main__":
 
     # open definitions from XML
     objdef = Definition(help.args.xmldef)
-
+    print()
     print(objdef)
+    print()
+    log("List of fields")
+    for map in objdef.mapping:
+        log(f"{map}: {objdef.mapping[map]}")
 
-    # # open and filter transactions
-    # with open(help.args.csvdef, newline='', encoding='latin1') as csvdef:
-    #     log(f"Definition CSV file: '{csvdef}'.")
-    #     defreader = csv.DictReader(csvdef, delimiter=';')
-    #     deflist = parse_def(defreader)
+    # load CSV data
+    print()
+    src = Source(help.args.csvin, objdef)
+    log(f"Number of transactions: {len(src.data)}")
+    src.export(help.args.csvout)
+
+    # display transformed data
+    # print()
+    # log("List of HomeBank transactions")
+    # for row in src.data:
+    #     print(row)
