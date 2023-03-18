@@ -146,8 +146,8 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 ### GnuCash Export
 - File > Export > Export Transactions to CSV
 - Choose Export Settings:
-   - Options: Simple layout
-   - Separators: Semicolon (;)
+   - Options: Simple layout - mandatory
+   - Separators: Semicolon (;) - optional
 - Select the account
 - Select the date range
 
@@ -157,6 +157,8 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 ## TODO
 
 - Change condition source to be independent from source field.
+- Add option to merge to existing CSV file.
+- Correct transfer transactions (see warning in transaction import).
 - Add option to double transactions for account to account transfers.
 
 ## Limitations
