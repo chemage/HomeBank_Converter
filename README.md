@@ -151,6 +151,8 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 - Select the account
 - Select the date range
 
+![Export Settings](/doc/gnucash-exportsettings.png)
+
 ## Limitations
 
 - Script does not accept multi-line CSV sources.
