@@ -93,7 +93,7 @@ The order of the conditions is important. Search finishes when a condition is me
 <details>
 <summary>Click to display the code</summary>
 
-```
+```xml
 <?xml version="1.0" ?>
 <Definition Name="Raiffeisen">
     <CsvDefinitions Delimiter=";" HeaderLineCount="1" Encoding="latin1" />
