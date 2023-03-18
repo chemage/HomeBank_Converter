@@ -152,6 +152,7 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 - Select the date range
 
 ![Export Settings](/doc/gnucash-exportsettings.png)
+![Export Settings](/doc/gnucash-daterange.png)
 
 ## TODO
 
