@@ -70,21 +70,25 @@ class Definition(object):
         xmlfields = self.xmlroot.findall('.//Field')
         self.mapping = {}
         for xmlfield in xmlfields:
-            hbrow     = xmlfield.find('HomeBank')
-            hbfield   = hbrow.get('Name').strip()
-            srcrow    = xmlfield.find('Source')
-            condition = xmlfield.find('Condition')
-            srcpos    = int(srcrow.get('Position'))
+            hbrow      = xmlfield.find('HomeBank')
+            hbfield    = hbrow.get('Name').strip()
+            srcrow     = xmlfield.find('Source')
+            conditions = xmlfield.findall('Condition')
+            srcpos     = int(srcrow.get('Position'))
             self.mapping[hbfield] = {
                 'hbpos':   int(hbrow.get('Position')),
                 'srcpos':  srcpos,
                 'srcname': srcrow.get('Name').strip(),
                 'format':  srcrow.get('Format')
             }
-            if condition != None:
-                self.mapping[hbfield]['condition'] = {}
-                for attr in condition.attrib:
-                    self.mapping[hbfield]['condition'][attr] = condition.get(attr)
+            if len(conditions) > 0:
+                self.mapping[hbfield]['conditions'] = []
+                # print("conditions:", len(conditions), conditions)
+                for condition in conditions:
+                    condattr = {}
+                    for attr in condition.attrib:
+                        condattr[attr] = condition.get(attr)
+                    self.mapping[hbfield]['conditions'].append(condattr)
 
     '''
     Return string representation of object
@@ -126,14 +130,20 @@ class Source(object):
                 srcpos = self.__map[hbfield]['srcpos']
                 if srcpos >= 0:
                     # condition
-                    if 'condition' in self.__map[hbfield]:
-                        condtype  = self.__map[hbfield]['condition']['Function']
-                        condtest  = self.__map[hbfield]['condition']['Test']
-                        print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
-                        if row[srcfield].find(condtest) >= 0:
-                            value = self.__map[hbfield]['condition']['ValueIfTrue']
-                        else:
-                            value = self.__map[hbfield]['condition']['ValueIfFalse']
+                    if 'conditions' in self.__map[hbfield]:
+                        lastcondvalue = None
+                        for condition in self.__map[hbfield]['conditions']:
+                            condtype  = condition['Function']
+                            condtest  = condition['Test']
+                            if not lastcondvalue:
+                                match condtype:
+                                    case 'find':
+                                        # print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
+                                        if row[srcfield].find(condtest) >= 0:
+                                            value = condition['ValueIfTrue']
+                                            lastcondvalue = value
+                                        else:
+                                            value = condition['ValueIfFalse']
                     else:
                         value  = row[srcfield]
                     match hbfield:

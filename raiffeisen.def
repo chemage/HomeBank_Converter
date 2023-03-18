@@ -9,7 +9,10 @@
         <Field>
             <HomeBank Position="1" Name="payment" />
             <Source Position="2" Name="Text" />
-            <Condition Function="find" Test="transfert de compte à compte" ValueIfTrue="4" ValueIfFalse="0" />
+            <Condition Function="find" ValueIfTrue="4" ValueIfFalse="0" Test="transfert de compte à compte" />
+            <Condition Function="find" ValueIfTrue="6" ValueIfFalse="0" Test="Achat" />
+            <Condition Function="find" ValueIfTrue="7" ValueIfFalse="0" Test="E-banking Ordre permanent" />
+            <Condition Function="find" ValueIfTrue="8" ValueIfFalse="0" Test="E-banking Ordre" />
         </Field>
         <Field>
             <HomeBank Position="2" Name="info" />
@@ -17,7 +20,8 @@
         </Field>
         <Field>
             <HomeBank Position="3" Name="payee" />
-            <Source Position="-1" Name="N/A" />
+            <Source Position="2" Name="Text" />
+            <Condition Function="find" Test="vo énergies commerce SA" ValueIfTrue="VO énergies" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="4" Name="memo" />
