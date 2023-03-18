@@ -156,7 +156,8 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 
 ## TODO
 
-- Double transactions for account to account transfers.
+- Change condition source to be independent from source field.
+- Add option to double transactions for account to account transfers.
 
 ## Limitations
 
