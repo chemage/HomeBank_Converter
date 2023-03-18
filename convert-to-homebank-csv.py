@@ -16,6 +16,29 @@ from xml.dom import minidom            # for exporting pretty XML
 from datetime import date, datetime, timedelta
 
 
+'''
+Colors for output in linux/python
+'''
+class bcolors:
+    HEADER    = '\033[95m'
+    OKBLUE    = '\033[94m'
+    OKCYAN    = '\033[96m'
+    OKGREEN   = '\033[92m'
+    WARN      = '\033[93m'
+    FAIL      = '\033[91m'
+    ENDC      = '\033[0m'
+    BOLD      = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+class ErrorCodes:
+    SUCCESS   = 0
+    GENERIC   = 1
+    DEFIMPORT = 2
+    CSVIMPORT = 3
+    CSVEXPORT = 4
+
+
 class Help(object):
 
     def __init__(self):
@@ -50,12 +73,14 @@ class Definition(object):
     '''
     def __load_def(self):
         log(f"Load definitions from file '{self.xmldef}'.")
-        try:
-            self.__xmltree = et.parse(self.xmldef)
-            self.xmlroot = self.__xmltree.getroot()
-            # log(f"Successfully loaded XML file '{self.xmldef}'.")
-        except:
-            log(f"Error: could not load XML file '{self.xmldef}'. {sys.exc_info()[0]}")
+        self.__xmltree = et.parse(self.xmldef)
+        self.xmlroot = self.__xmltree.getroot()
+
+        if 'Name' in self.xmlroot.attrib:
+            self.__name__ = self.xmlroot.get('Name')
+        else:
+            self.__name__ = 'unknown definition file'
+            log(f"Warning: definition file has no name. Consider adding an attribute 'Name' in <Definition> tag.")
 
     '''
     Parse definition file.
@@ -102,6 +127,9 @@ class Definition(object):
 
         return str
 
+    def name(self):
+        return self.__name__
+
 
 '''
 Source CSV object
@@ -131,19 +159,20 @@ class Source(object):
                 if srcpos >= 0:
                     # condition
                     if 'conditions' in self.__map[hbfield]:
-                        lastcondvalue = None
+                        # lastcondvalue = None
                         for condition in self.__map[hbfield]['conditions']:
                             condtype  = condition['Function']
                             condtest  = condition['Test']
-                            if not lastcondvalue:
-                                match condtype:
-                                    case 'find':
-                                        # print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
-                                        if row[srcfield].find(condtest) >= 0:
-                                            value = condition['ValueIfTrue']
-                                            lastcondvalue = value
-                                        else:
-                                            value = condition['ValueIfFalse']
+                            # if not lastcondvalue:
+                            match condtype:
+                                case 'find':
+                                    # print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
+                                    if row[srcfield].find(condtest) >= 0:
+                                        value = condition['ValueIfTrue']
+                                        break
+                                        # lastcondvalue = value
+                                    else:
+                                        value = condition['ValueIfFalse']
                     else:
                         value  = row[srcfield]
                     match hbfield:
@@ -167,21 +196,6 @@ class Source(object):
             csvwriter.writeheader()
             for row in self.data:
                 csvwriter.writerow(row)
-
-
-'''
-Colors for output in linux/python
-'''
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARN = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 '''
 
@@ -228,33 +242,12 @@ Convert date to string in HomeBank format.
 def date2str(dt, format = '%d-%m-%Y'):
     return dt.strftime(format)
 
-'''
-Print a transaction row.
-'''
-def print_row(row, prefix="", suffix = f"{bcolors.ENDC}"):
-    try:
-        bookedat = date2str(row['BookedAt'])
-    except:
-        bookedat = row['BookedAt']
-    log(f"{prefix}{bookedat} {float(row['Amount']):9.2f} - {row['Text']}{suffix}")
 
 '''
-Sort a dictionary.
-field: field to use for sorting
+Main attraction
 '''
-def sort_dictlist(csvdict, field):
-    size = len(csvdict)
-    for i in range(size):
-        min_index = i
-        for j in range(i + 1, size):
-            if csvdict[min_index][field] > csvdict[j][field]:
-                min_index = j
-        temp = csvdict[i]
-        csvdict[i] = csvdict[min_index]
-        csvdict[min_index] = temp
-
-
 if __name__ == "__main__":
+    errorcode = ErrorCodes.SUCCESS
     log(f"Welcome to the transaction CSV to HomeBank CSV Convert Script")
 
     # fix colorama for windows
@@ -265,22 +258,50 @@ if __name__ == "__main__":
     help = Help()
 
     # open definitions from XML
-    objdef = Definition(help.args.xmldef)
-    print()
-    print(objdef)
-    print()
-    log("List of fields")
-    for map in objdef.mapping:
-        log(f"{map}: {objdef.mapping[map]}")
+    try:
+        objdef = Definition(help.args.xmldef)
+        log(f"Definition: {objdef.name()}.")
+        log(f"Number of field mappings: {len(objdef.mapping)}")
+    except Exception as e:
+        log(f"Error: could not load definitions.")
+        errorcode = ErrorCodes.DEFIMPORT
+        exception = e
+    # for map in objdef.mapping:
+    #     log(f"{map}: {objdef.mapping[map]}")
 
     # load CSV data
-    print()
-    src = Source(help.args.csvin, objdef)
-    log(f"Number of transactions: {len(src.data)}")
-    src.export(help.args.csvout)
+    if errorcode == ErrorCodes.SUCCESS:
+        try:
+            src = Source(help.args.csvin, objdef)
+            log(f"Number of transactions: {len(src.data)}")
+        except KeyError as e:
+            log(f"Error: incorrect mapping in file '{help.args.csvin}': {sys.exc_info()[1]}")
+            errorcode = ErrorCodes.CSVIMPORT
+            exception = e
+        except Exception as e:
+            log(f"Error: could not convert source file '{help.args.csvin}'.")
+            errorcode = ErrorCodes.CSVIMPORT
+            exception = e
+
+    #  export CSV
+    if errorcode == ErrorCodes.SUCCESS:
+        try:
+            src.export(help.args.csvout)
+        except Exception as e:
+            log(f"Error: could not export HomeBank file '{help.args.csvout}'.")
+            errorcode = ErrorCodes.CSVEXPORT
+            exception = e
 
     # display transformed data
     # print()
     # log("List of HomeBank transactions")
     # for row in src.data:
     #     print(row)
+
+    if errorcode == ErrorCodes.SUCCESS:
+        log("Execution completed successfully.")
+    else:
+        log(f"Execution completed with errors. Exit code {errorcode}.")
+        print()
+        print()
+        raise exception
