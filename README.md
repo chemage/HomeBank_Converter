@@ -36,7 +36,9 @@ The order of the conditions is important. Search finishes when a condition is me
 - find: find text in a string
 
 ### Example GnuCash
-```
+<details>
+<summary>Click to display the code</summary>
+```xml
 <?xml version="1.0" ?>
 <Definition Name="Gnucash CHF">
     <CsvDefinitions Delimiter=";" HeaderLineCount="1" Encoding="utf8" />
@@ -84,9 +86,12 @@ The order of the conditions is important. Search finishes when a condition is me
     </Fields>
 </Definition>
 ```
+</details>
 
 ### Example Raiffeisen Switzerland
-```
+<details>
+<summary>Click to display the code</summary>
+```xml
 <?xml version="1.0" ?>
 <Definition Name="Raiffeisen">
     <CsvDefinitions Delimiter=";" HeaderLineCount="1" Encoding="latin1" />
@@ -130,6 +135,7 @@ The order of the conditions is important. Search finishes when a condition is me
     </Fields>
 </Definition>
 ```
+</details>
 
 ## CSV Exports
 Exports have to be one line per transaction.
@@ -138,8 +144,8 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 ### GnuCash Export
 - File > Export > Export Transactions to CSV
 - Choose Export Settings:
-  Options: Simple layout
-  Separators: Semicolon (;)
+   - Options: Simple layout
+   - Separators: Semicolon (;)
 - Select the account
 - Select the date range
 
