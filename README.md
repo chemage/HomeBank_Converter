@@ -38,6 +38,7 @@ The order of the conditions is important. Search finishes when a condition is me
 ### Example GnuCash
 <details>
 <summary>Click to display the code</summary>
+
 ```xml
 <?xml version="1.0" ?>
 <Definition Name="Gnucash CHF">
@@ -91,6 +92,7 @@ The order of the conditions is important. Search finishes when a condition is me
 ### Example Raiffeisen Switzerland
 <details>
 <summary>Click to display the code</summary>
+
 ```
 <?xml version="1.0" ?>
 <Definition Name="Raiffeisen">
