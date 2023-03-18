@@ -153,6 +153,10 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 
 ![Export Settings](/doc/gnucash-exportsettings.png)
 
+## TODO
+
+- Double transactions for account to account transfers.
+
 ## Limitations
 
 - Script does not accept multi-line CSV sources.
