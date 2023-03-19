@@ -163,11 +163,13 @@ class Source(object):
                         for condition in self.__map[hbfield]['conditions']:
                             condtype  = condition['Method']
                             condtest  = condition['Test']
+                            if 'SourceField' in condition: condsrcfield = condition['SourceField']
+                            else:                          condsrcfield = srcfield
                             # if not lastcondvalue:
                             match condtype:
                                 case 'find':
                                     # print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
-                                    if row[srcfield].find(condtest) >= 0:
+                                    if row[condsrcfield].find(condtest) >= 0:
                                         value = condition['ValueIfTrue']
                                         break
                                         # lastcondvalue = value
