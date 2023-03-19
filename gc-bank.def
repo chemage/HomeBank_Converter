@@ -54,9 +54,7 @@
             <Condition Method="find" Test="Migros" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="Boulangerie" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="Boucherie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Method="find" Test="Epicerie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Method="find" Test="Épicerie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Method="find" Test="épicerie" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="match" Test="[EÉé]picerie" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="La Fée d'Or" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="SAN - " ValueIfTrue="Vehicles:SAN" ValueIfFalse="" />
             <Condition Method="find" Test="TCS" ValueIfTrue="Insurance:Travel" ValueIfFalse="" />
@@ -81,9 +79,7 @@
             <Condition Method="find" Test="Coop" ValueIfTrue="Supermarket" ValueIfFalse="" />
             <Condition Method="find" Test="Migros" ValueIfTrue="Supermarket" ValueIfFalse="" />
             <Condition Method="find" Test="Denner" ValueIfTrue="Supermarket" ValueIfFalse="" />
-            <Condition Method="find" Test="Epicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
-            <Condition Method="find" Test="Épicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
-            <Condition Method="find" Test="épicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
+            <Condition Method="match" Test="[EÉé]picerie" ValueIfTrue="Grocery" ValueIfFalse="" />
             <Condition Method="find" Test="Louis" ValueIfTrue="Family" ValueIfFalse="" />
             <Condition Method="find" Test="Charly" ValueIfTrue="Family" ValueIfFalse="" />
             <Condition Method="find" Test="Béatrice" ValueIfTrue="Family" ValueIfFalse="" />

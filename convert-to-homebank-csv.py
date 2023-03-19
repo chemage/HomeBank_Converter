@@ -176,7 +176,12 @@ class Source(object):
                                     else:
                                         value = condition['ValueIfFalse']
                                 case 'match':
-                                    pass
+                                    if re.match(condtest, row[condsrcfield]):
+                                        value = condition['ValueIfTrue']
+                                        break
+                                    else:
+                                        value = condition['ValueIfFalse']
+                                        
                     else:
                         value  = row[srcfield]
                     match hbfield:
