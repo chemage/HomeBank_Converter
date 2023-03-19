@@ -161,6 +161,7 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 
 ## TODO
 
+- Correct TRANSFER transactions => MATCH other account if asset
 - Add option to merge to existing CSV file.
 - Add option to double transactions for account to account transfers.
 
