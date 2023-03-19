@@ -51,7 +51,7 @@ The order of the conditions is important. Search finishes when a condition is me
         <Field>
             <HomeBank Position="1" Name="payment" />
             <Source Position="4" Name="Full Category Path" />
-            <Condition Function="find" ValueIfTrue="9" ValueIfFalse="3" Test="Assets:Current Assets:Bank Accounts" />
+            <Condition Method="find" ValueIfTrue="9" ValueIfFalse="3" Test="Assets:Current Assets:Bank Accounts" />
         </Field>
         <Field>
             <HomeBank Position="2" Name="info" />
@@ -72,17 +72,17 @@ The order of the conditions is important. Search finishes when a condition is me
         <Field>
             <HomeBank Position="6" Name="category" />
             <Source Position="3" Name="Description" />
-            <Condition Function="find" Test="Donation" ValueIfTrue="Charitable Donations" ValueIfFalse="" />
-            <Condition Function="find" Test="Marché" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="Lessive" ValueIfTrue="Housold:Laundry" ValueIfFalse="" />
+            <Condition Method="find" Test="Donation" ValueIfTrue="Charitable Donations" ValueIfFalse="" />
+            <Condition Method="find" Test="Marché" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="Lessive" ValueIfTrue="Housold:Laundry" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="7" Name="tags" />
             <Source Position="3" Name="Description" />
-            <Condition Function="find" Test="Marché" ValueIfTrue="Food Market" ValueIfFalse="" />
-            <Condition Function="find" Test="Coop" ValueIfTrue="Supermarket" ValueIfFalse="" />
-            <Condition Function="find" Test="Migros" ValueIfTrue="Supermarket" ValueIfFalse="" />
-            <Condition Function="find" Test="Denner" ValueIfTrue="Supermarket" ValueIfFalse="" />
+            <Condition Method="find" Test="Marché" ValueIfTrue="Food Market" ValueIfFalse="" />
+            <Condition Method="find" Test="Coop" ValueIfTrue="Supermarket" ValueIfFalse="" />
+            <Condition Method="find" Test="Migros" ValueIfTrue="Supermarket" ValueIfFalse="" />
+            <Condition Method="find" Test="Denner" ValueIfTrue="Supermarket" ValueIfFalse="" />
         </Field>
     </Fields>
 </Definition>
@@ -105,10 +105,10 @@ The order of the conditions is important. Search finishes when a condition is me
         <Field>
             <HomeBank Position="1" Name="payment" />
             <Source Position="2" Name="Text" />
-            <Condition Function="find" ValueIfTrue="4" ValueIfFalse="0" Test="transfert de compte à compte" />
-            <Condition Function="find" ValueIfTrue="6" ValueIfFalse="0" Test="Achat" />
-            <Condition Function="find" ValueIfTrue="7" ValueIfFalse="0" Test="E-banking Ordre permanent" />
-            <Condition Function="find" ValueIfTrue="8" ValueIfFalse="0" Test="E-banking Ordre (eBill)" />
+            <Condition Method="find" ValueIfTrue="4" ValueIfFalse="0" Test="transfert de compte à compte" />
+            <Condition Method="find" ValueIfTrue="6" ValueIfFalse="0" Test="Achat" />
+            <Condition Method="find" ValueIfTrue="7" ValueIfFalse="0" Test="E-banking Ordre permanent" />
+            <Condition Method="find" ValueIfTrue="8" ValueIfFalse="0" Test="E-banking Ordre (eBill)" />
         </Field>
         <Field>
             <HomeBank Position="2" Name="info" />
@@ -159,7 +159,7 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 - Change condition source to be independent from source field.
 - Add option to merge to existing CSV file.
 - Add option to search for case insensitive
-- Add find payee from description field ((.*)!\ -\ )
+- Add a match method (Add find payee from description field ((.*)!\ -\ ))
 - Correct transfer transactions (see warning in transaction import).
 - Add option to double transactions for account to account transfers.
 

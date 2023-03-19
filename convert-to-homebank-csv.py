@@ -161,7 +161,7 @@ class Source(object):
                     if 'conditions' in self.__map[hbfield]:
                         # lastcondvalue = None
                         for condition in self.__map[hbfield]['conditions']:
-                            condtype  = condition['Function']
+                            condtype  = condition['Method']
                             condtest  = condition['Test']
                             # if not lastcondvalue:
                             match condtype:
@@ -173,6 +173,8 @@ class Source(object):
                                         # lastcondvalue = value
                                     else:
                                         value = condition['ValueIfFalse']
+                                case 'match':
+                                    pass
                     else:
                         value  = row[srcfield]
                     match hbfield:

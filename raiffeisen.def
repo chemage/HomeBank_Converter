@@ -9,11 +9,11 @@
         <Field>
             <HomeBank Position="1" Name="payment" />
             <Source Position="2" Name="Text" />
-            <Condition Function="find" ValueIfTrue="4" ValueIfFalse="0" Test="transfert de compte à compte" />
-            <Condition Function="find" ValueIfTrue="4" ValueIfFalse="0" Test="E-banking Ordre permanent à Marcel Gerber" />
-            <Condition Function="find" ValueIfTrue="6" ValueIfFalse="0" Test="Achat" />
-            <Condition Function="find" ValueIfTrue="7" ValueIfFalse="0" Test="E-banking Ordre permanent" />
-            <Condition Function="find" ValueIfTrue="8" ValueIfFalse="0" Test="E-banking Ordre" />
+            <Condition Method="find" ValueIfTrue="4" ValueIfFalse="0" Test="transfert de compte à compte" />
+            <Condition Method="find" ValueIfTrue="4" ValueIfFalse="0" Test="E-banking Ordre permanent à Marcel Gerber" />
+            <Condition Method="find" ValueIfTrue="6" ValueIfFalse="0" Test="Achat" />
+            <Condition Method="find" ValueIfTrue="7" ValueIfFalse="0" Test="E-banking Ordre permanent" />
+            <Condition Method="find" ValueIfTrue="8" ValueIfFalse="0" Test="E-banking Ordre" />
         </Field>
         <Field>
             <HomeBank Position="2" Name="info" />
@@ -22,15 +22,15 @@
         <Field>
             <HomeBank Position="3" Name="payee" />
             <Source Position="2" Name="Text" />
-            <Condition Function="find" Test="Crédit BNC Business Network" ValueIfTrue="BNC AG" ValueIfFalse="" />
-            <Condition Function="find" Test="E-banking Ordre permanent à Marcel Gerber" ValueIfTrue="" ValueIfFalse="" />
-            <Condition Function="find" Test="vo énergies commerce SA" ValueIfTrue="VOénergies Orbe" ValueIfFalse="" />
-            <Condition Function="find" Test="COOP-" ValueIfTrue="Coop" ValueIfFalse="" />
-            <Condition Function="find" Test="MIGROS" ValueIfTrue="Migros" ValueIfFalse="" />
-            <Condition Function="find" Test="OCHSNER SPORT" ValueIfTrue="Ochsner Sport" ValueIfFalse="" />
-            <Condition Function="find" Test="Touring Club Suisse" ValueIfTrue="Touring Club Suisse" ValueIfFalse="" />
-            <Condition Function="find" Test="ECA VD" ValueIfTrue="ECA" ValueIfFalse="" />
-            <Condition Function="find" Test="SYLVIE ALLENBACH, SARAH" ValueIfTrue="Sarah Allenbach" ValueIfFalse="" />
+            <Condition Method="find" Test="Crédit BNC Business Network" ValueIfTrue="BNC AG" ValueIfFalse="" />
+            <Condition Method="find" Test="E-banking Ordre permanent à Marcel Gerber" ValueIfTrue="" ValueIfFalse="" />
+            <Condition Method="find" Test="vo énergies commerce SA" ValueIfTrue="VOénergies Orbe" ValueIfFalse="" />
+            <Condition Method="find" Test="COOP-" ValueIfTrue="Coop" ValueIfFalse="" />
+            <Condition Method="find" Test="MIGROS" ValueIfTrue="Migros" ValueIfFalse="" />
+            <Condition Method="find" Test="OCHSNER SPORT" ValueIfTrue="Ochsner Sport" ValueIfFalse="" />
+            <Condition Method="find" Test="Touring Club Suisse" ValueIfTrue="Touring Club Suisse" ValueIfFalse="" />
+            <Condition Method="find" Test="ECA VD" ValueIfTrue="ECA" ValueIfFalse="" />
+            <Condition Method="find" Test="SYLVIE ALLENBACH, SARAH" ValueIfTrue="Sarah Allenbach" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="4" Name="memo" />
@@ -43,14 +43,14 @@
         <Field>
             <HomeBank Position="6" Name="category" />
             <Source Position="2" Name="Text" />
-            <Condition Function="find" Test="Crédit BNC Business Network" ValueIfTrue="Wage &amp; Salary:Net Pay" ValueIfFalse="" />
-            <Condition Function="find" Test="vo énergies commerce SA" ValueIfTrue="Bills:On-line/Internet Service" ValueIfFalse="" />
-            <Condition Function="find" Test="COOP-" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="MIGROS" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="Touring Club Suisse" ValueIfTrue="Insurance:Travel" ValueIfFalse="" />
-            <Condition Function="find" Test="ECA VD" ValueIfTrue="Insurance:Home-owner's/Renter's" ValueIfFalse="" />
-            <Condition Function="find" Test="OCHSNER SPORT" ValueIfTrue="Hobbies/Leisure:Sporting Goods" ValueIfFalse="" />
-            <Condition Function="find" Test="SYLVIE ALLENBACH, SARAH" ValueIfTrue="Household:House Cleaning" ValueIfFalse="" />
+            <Condition Method="find" Test="Crédit BNC Business Network" ValueIfTrue="Wage &amp; Salary:Net Pay" ValueIfFalse="" />
+            <Condition Method="find" Test="vo énergies commerce SA" ValueIfTrue="Bills:On-line/Internet Service" ValueIfFalse="" />
+            <Condition Method="find" Test="COOP-" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="MIGROS" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="Touring Club Suisse" ValueIfTrue="Insurance:Travel" ValueIfFalse="" />
+            <Condition Method="find" Test="ECA VD" ValueIfTrue="Insurance:Home-owner's/Renter's" ValueIfFalse="" />
+            <Condition Method="find" Test="OCHSNER SPORT" ValueIfTrue="Hobbies/Leisure:Sporting Goods" ValueIfFalse="" />
+            <Condition Method="find" Test="SYLVIE ALLENBACH, SARAH" ValueIfTrue="Household:House Cleaning" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="7" Name="tags" />

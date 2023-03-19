@@ -9,9 +9,9 @@
         <Field>
             <HomeBank Position="1" Name="payment" />
             <Source Position="4" Name="Full Category Path" />
-            <Condition Function="find" ValueIfTrue="4" ValueIfFalse="6" Test="Assets:Current Assets:Bank Accounts" />
-            <Condition Function="find" ValueIfTrue="3" ValueIfFalse="6" Test="Assets:Current Assets:Wallets:Switzerland" />
-            <Condition Function="find" ValueIfTrue="10" ValueIfFalse="6" Test="Expenses:Bank Service Charge" />
+            <Condition Method="find" ValueIfTrue="4" ValueIfFalse="6" Test="Assets:Current Assets:Bank Accounts" />
+            <Condition Method="find" ValueIfTrue="3" ValueIfFalse="6" Test="Assets:Current Assets:Wallets:Switzerland" />
+            <Condition Method="find" ValueIfTrue="10" ValueIfFalse="6" Test="Expenses:Bank Service Charge" />
         </Field>
         <Field>
             <HomeBank Position="2" Name="info" />
@@ -20,14 +20,14 @@
         <Field>
             <HomeBank Position="3" Name="payee" />
             <Source Position="3" Name="Description" />
-            <Condition Function="find" Test="BNC - salaire" ValueIfTrue="BNC AG" ValueIfFalse="" />
-            <Condition Function="find" Test="Bobst - loyer" ValueIfTrue="Bobst Régie Immobilière" ValueIfFalse="" />
-            <Condition Function="find" Test="Rytz" ValueIfTrue="Rytz SA" ValueIfFalse="" />
-            <Condition Function="find" Test="Mobilière" ValueIfTrue="La Mobilière" ValueIfFalse="" />
-            <Condition Function="find" Test="SUPRAcare" ValueIfTrue="Groupe Mutuel" ValueIfFalse="" />
-            <Condition Function="find" Test="VOénergies - Net+ Internet" ValueIfTrue="VOénergies Orbe" ValueIfFalse="" />
-            <Condition Function="find" Test="TCS" ValueIfTrue="Touring Club Suisse" ValueIfFalse="" />
-            <Condition Function="find" Test="SAN - " ValueIfTrue="Service des automobiles et de la navigation" ValueIfFalse="" />
+            <Condition Method="find" Test="BNC - salaire" ValueIfTrue="BNC AG" ValueIfFalse="" />
+            <Condition Method="find" Test="Bobst - loyer" ValueIfTrue="Bobst Régie Immobilière" ValueIfFalse="" />
+            <Condition Method="find" Test="Rytz" ValueIfTrue="Rytz SA" ValueIfFalse="" />
+            <Condition Method="find" Test="Mobilière" ValueIfTrue="La Mobilière" ValueIfFalse="" />
+            <Condition Method="find" Test="SUPRAcare" ValueIfTrue="Groupe Mutuel" ValueIfFalse="" />
+            <Condition Method="find" Test="VOénergies - Net+ Internet" ValueIfTrue="VOénergies Orbe" ValueIfFalse="" />
+            <Condition Method="find" Test="TCS" ValueIfTrue="Touring Club Suisse" ValueIfFalse="" />
+            <Condition Method="find" Test="SAN - " ValueIfTrue="Service des automobiles et de la navigation" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="4" Name="memo" />
@@ -40,53 +40,53 @@
         <Field>
             <HomeBank Position="6" Name="category" />
             <Source Position="3" Name="Description" />
-            <Condition Function="find" Test="BNC - salaire" ValueIfTrue="Wage &amp; Salary:Net Pay" ValueIfFalse="" />
-            <Condition Function="find" Test="loyer" ValueIfTrue="Bills:Rent" ValueIfFalse="" />
-            <Condition Function="find" Test="Visana - LAMal et complémentaires" ValueIfTrue="Insurance:Health" ValueIfFalse="" />
-            <Condition Function="find" Test="Mobilière - MobiLife" ValueIfTrue="Insurance:Life" ValueIfFalse="" />
-            <Condition Function="find" Test="SUPRAcare" ValueIfTrue="Insurance:Health" ValueIfFalse="" />
-            <Condition Function="find" Test="VOénergies - Net+ Internet" ValueIfTrue="Bills:On-line/Internet Service" ValueIfFalse="" />
-            <Condition Function="find" Test="Allianz - Assurance véhicules à moteur (Hyundai iX20)" ValueIfTrue="Insurance:Automobile" ValueIfFalse="" />
-            <Condition Function="find" Test="Allianz - Assurance véhicules à moteur (Suzuki DL380)" ValueIfTrue="Insurance:Motorcycle" ValueIfFalse="" />
-            <Condition Function="find" Test="CFF" ValueIfTrue="Transportation:Swiss Transports" ValueIfFalse="" />
-            <Condition Function="find" Test="Fairtiq" ValueIfTrue="Transportation:Swiss Transports" ValueIfFalse="" />
-            <Condition Function="find" Test="Coop" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="Migros" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="Boulangerie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="Boucherie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="Epicerie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="Épicerie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="épicerie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="La Fée d'Or" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Function="find" Test="SAN - " ValueIfTrue="Vehicles:SAN" ValueIfFalse="" />
-            <Condition Function="find" Test="TCS" ValueIfTrue="Insurance:Travel" ValueIfFalse="" />
-            <Condition Function="find" Test="ECA" ValueIfTrue="Insurance:Home-owner's/Renter's" ValueIfFalse="" />
-            <Condition Function="find" Test="Ochsner Sport" ValueIfTrue="Hobbies/Leisure:Sporting Goods" ValueIfFalse="" />
-            <Condition Function="find" Test="Sarah Allenbach" ValueIfTrue="Household:House Cleaning" ValueIfFalse="" />
-            <Condition Function="find" Test="Jumbo" ValueIfTrue="Hobbies/Leisure:Gardening" ValueIfFalse="" />
-            <Condition Function="find" Test="Restaurant" ValueIfTrue="Hobbies/Leisure:Restaurant" ValueIfFalse="" />
-            <Condition Function="find" Test="La Capsule" ValueIfTrue="Hobbies/Leisure:Craft Beer" ValueIfFalse="" />
-            <Condition Function="find" Test="La Cave à Bière" ValueIfTrue="Hobbies/Leisure:Craft Beer" ValueIfFalse="" />
-            <Condition Function="find" Test="bière" ValueIfTrue="Hobbies/Leisure:Bar" ValueIfFalse="" />
-            <Condition Function="find" Test="Retrait" ValueIfTrue="&lt; Cash" ValueIfFalse="" />
-            <Condition Function="find" Test="Taxe annuelle carte Maestro" ValueIfTrue="Bank Charges:Service Charges" ValueIfFalse="" />
-            <Condition Function="find" Test="cadeau" ValueIfTrue="Gifts" ValueIfFalse="" />
-            <Condition Function="find" Test="anni" ValueIfTrue="Gifts" ValueIfFalse="" />
+            <Condition Method="find" Test="BNC - salaire" ValueIfTrue="Wage &amp; Salary:Net Pay" ValueIfFalse="" />
+            <Condition Method="find" Test="loyer" ValueIfTrue="Bills:Rent" ValueIfFalse="" />
+            <Condition Method="find" Test="Visana - LAMal et complémentaires" ValueIfTrue="Insurance:Health" ValueIfFalse="" />
+            <Condition Method="find" Test="Mobilière - MobiLife" ValueIfTrue="Insurance:Life" ValueIfFalse="" />
+            <Condition Method="find" Test="SUPRAcare" ValueIfTrue="Insurance:Health" ValueIfFalse="" />
+            <Condition Method="find" Test="VOénergies - Net+ Internet" ValueIfTrue="Bills:On-line/Internet Service" ValueIfFalse="" />
+            <Condition Method="find" Test="Allianz - Assurance véhicules à moteur (Hyundai iX20)" ValueIfTrue="Insurance:Automobile" ValueIfFalse="" />
+            <Condition Method="find" Test="Allianz - Assurance véhicules à moteur (Suzuki DL380)" ValueIfTrue="Insurance:Motorcycle" ValueIfFalse="" />
+            <Condition Method="find" Test="CFF" ValueIfTrue="Transportation:Swiss Transports" ValueIfFalse="" />
+            <Condition Method="find" Test="Fairtiq" ValueIfTrue="Transportation:Swiss Transports" ValueIfFalse="" />
+            <Condition Method="find" Test="Coop" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="Migros" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="Boulangerie" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="Boucherie" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="Epicerie" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="Épicerie" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="épicerie" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="La Fée d'Or" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="SAN - " ValueIfTrue="Vehicles:SAN" ValueIfFalse="" />
+            <Condition Method="find" Test="TCS" ValueIfTrue="Insurance:Travel" ValueIfFalse="" />
+            <Condition Method="find" Test="ECA" ValueIfTrue="Insurance:Home-owner's/Renter's" ValueIfFalse="" />
+            <Condition Method="find" Test="Ochsner Sport" ValueIfTrue="Hobbies/Leisure:Sporting Goods" ValueIfFalse="" />
+            <Condition Method="find" Test="Sarah Allenbach" ValueIfTrue="Household:House Cleaning" ValueIfFalse="" />
+            <Condition Method="find" Test="Jumbo" ValueIfTrue="Hobbies/Leisure:Gardening" ValueIfFalse="" />
+            <Condition Method="find" Test="Restaurant" ValueIfTrue="Hobbies/Leisure:Restaurant" ValueIfFalse="" />
+            <Condition Method="find" Test="La Capsule" ValueIfTrue="Hobbies/Leisure:Craft Beer" ValueIfFalse="" />
+            <Condition Method="find" Test="La Cave à Bière" ValueIfTrue="Hobbies/Leisure:Craft Beer" ValueIfFalse="" />
+            <Condition Method="find" Test="bière" ValueIfTrue="Hobbies/Leisure:Bar" ValueIfFalse="" />
+            <Condition Method="find" Test="Retrait" ValueIfTrue="&lt; Cash" ValueIfFalse="" />
+            <Condition Method="find" Test="Taxe annuelle carte Maestro" ValueIfTrue="Bank Charges:Service Charges" ValueIfFalse="" />
+            <Condition Method="find" Test="cadeau" ValueIfTrue="Gifts" ValueIfFalse="" />
+            <Condition Method="find" Test="anni" ValueIfTrue="Gifts" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="7" Name="tags" />
             <Source Position="3" Name="Description" />
-            <Condition Function="find" Test="Marché" ValueIfTrue="FoodMarket" ValueIfFalse="" />
-            <Condition Function="find" Test="La Fée d'Or" ValueIfTrue="FoodMarket" ValueIfFalse="" />
-            <Condition Function="find" Test="Coop" ValueIfTrue="Supermarket" ValueIfFalse="" />
-            <Condition Function="find" Test="Migros" ValueIfTrue="Supermarket" ValueIfFalse="" />
-            <Condition Function="find" Test="Denner" ValueIfTrue="Supermarket" ValueIfFalse="" />
-            <Condition Function="find" Test="Epicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
-            <Condition Function="find" Test="Épicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
-            <Condition Function="find" Test="épicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
-            <Condition Function="find" Test="Louis" ValueIfTrue="Family" ValueIfFalse="" />
-            <Condition Function="find" Test="Charly" ValueIfTrue="Family" ValueIfFalse="" />
-            <Condition Function="find" Test="Béatrice" ValueIfTrue="Family" ValueIfFalse="" />
+            <Condition Method="find" Test="Marché" ValueIfTrue="FoodMarket" ValueIfFalse="" />
+            <Condition Method="find" Test="La Fée d'Or" ValueIfTrue="FoodMarket" ValueIfFalse="" />
+            <Condition Method="find" Test="Coop" ValueIfTrue="Supermarket" ValueIfFalse="" />
+            <Condition Method="find" Test="Migros" ValueIfTrue="Supermarket" ValueIfFalse="" />
+            <Condition Method="find" Test="Denner" ValueIfTrue="Supermarket" ValueIfFalse="" />
+            <Condition Method="find" Test="Epicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
+            <Condition Method="find" Test="Épicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
+            <Condition Method="find" Test="épicerie" ValueIfTrue="Grocery" ValueIfFalse="" />
+            <Condition Method="find" Test="Louis" ValueIfTrue="Family" ValueIfFalse="" />
+            <Condition Method="find" Test="Charly" ValueIfTrue="Family" ValueIfFalse="" />
+            <Condition Method="find" Test="Béatrice" ValueIfTrue="Family" ValueIfFalse="" />
         </Field>
     </Fields>
 </Definition>
