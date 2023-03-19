@@ -275,7 +275,7 @@ if __name__ == "__main__":
             src = Source(help.args.csvin, objdef)
             log(f"Number of transactions: {len(src.data)}")
         except KeyError as e:
-            log(f"Error: incorrect mapping in file '{help.args.csvin}': {sys.exc_info()[1]}")
+            log(f"Error: incorrect mapping in file '{help.args.xmldef}': {sys.exc_info()[1]}")
             errorcode = ErrorCodes.CSVIMPORT
             exception = e
         except Exception as e:

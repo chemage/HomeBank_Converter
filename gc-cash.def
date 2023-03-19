@@ -33,7 +33,7 @@
             <Condition Function="find" Test="Donation" ValueIfTrue="Charitable Donations" ValueIfFalse="" />
             <Condition Function="find" Test="Marché" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Function="find" Test="Lessive" ValueIfTrue="Housold:Laundry" ValueIfFalse="" />
-            <Condition Function="find" Test="Retrait" ValueIfTrue="&lt; Raiffeisen Privé Sociétaire" ValueIfFalse="" />
+            <Condition Function="find" Test="Retrait" ValueIfTrue="&gt; Raiffeisen Privé Sociétaire" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="7" Name="tags" />

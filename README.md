@@ -158,6 +158,8 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 
 - Change condition source to be independent from source field.
 - Add option to merge to existing CSV file.
+- Add option to search for case insensitive
+- Add find payee from description field ((.*)!\ -\ )
 - Correct transfer transactions (see warning in transaction import).
 - Add option to double transactions for account to account transfers.
 
