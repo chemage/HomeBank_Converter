@@ -34,6 +34,8 @@ The order of the conditions is important. Search finishes when a condition is me
 
 #### Methods
 - find: find text in a string
+   - CaseSensitive: add the attribute to search with case sensitive
+   - default case: not case sensitive
 - search: use a regular expression to lookup for contents (https://docs.python.org/3/library/re.html)
 
 ### Example GnuCash

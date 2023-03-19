@@ -162,17 +162,22 @@ class Source(object):
                         # lastcondvalue = None
                         for condition in self.__map[hbfield]['conditions']:
                             condtype  = condition['Method']
-                            condtest  = condition['Test']
                             if 'SourceField' in condition: condsrcfield = condition['SourceField']
                             else:                          condsrcfield = srcfield
+                            if not 'CaseSensitive' in condition:
+                                condtest = condition['Test'].lower()
+                                rowvalue = row[condsrcfield].lower()
+                            else:
+                                condtest  = condition['Test']
+                                rowvalue = row[condsrcfield]
                             # if not lastcondvalue:
                             condmet = False
                             match condtype:
                                 case 'find':
                                     # print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
-                                    if row[condsrcfield].find(condtest) >= 0: condmet = True
+                                    if rowvalue.find(condtest) >= 0: condmet = True
                                 case 'search':
-                                    if re.search(condtest, row[condsrcfield]): condmet = True
+                                    if re.search(condtest, rowvalue): condmet = True
                             if condmet:
                                 value = condition['ValueIfTrue']
                                 break
