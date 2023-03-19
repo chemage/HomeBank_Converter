@@ -135,6 +135,9 @@ class Definition(object):
 Source CSV object
 '''
 class Source(object):
+    '''
+    Initialize object
+    '''
     def __init__(self, csvin, objdef):
         self.csvin  = csvin
         self.csvdef = objdef
@@ -142,12 +145,18 @@ class Source(object):
         self.data   = []
         self.load_csv()
 
+    '''
+    Load CSV file
+    '''
     def load_csv(self):
         log(f"Import from file '{self.csvin}'.")
         with open(self.csvin, newline='', encoding=self.csvdef.encoding) as csvin:
             csvreader = csv.DictReader(csvin, delimiter=self.csvdef.delim)
             self.parse_source(csvreader)
 
+    '''
+    Parse source CSV to map fields
+    '''
     def parse_source(self, csvreader):
         for row in csvreader:
             hbrow = {}
@@ -157,36 +166,8 @@ class Source(object):
                 # mapped fields
                 srcpos = self.__map[hbfield]['srcpos']
                 if srcpos >= 0:
-                    # condition
-                    if 'conditions' in self.__map[hbfield]:
-                        # lastcondvalue = None
-                        for condition in self.__map[hbfield]['conditions']:
-                            condtype  = condition['Method']
-                            if 'SourceField' in condition: condsrcfield = condition['SourceField']
-                            else:                          condsrcfield = srcfield
-                            if not 'CaseSensitive' in condition:
-                                condtest = condition['Test'].lower()
-                                rowvalue = row[condsrcfield].lower()
-                            else:
-                                condtest  = condition['Test']
-                                rowvalue = row[condsrcfield]
-                            # if not lastcondvalue:
-                            condmet = False
-                            match condtype:
-                                case 'find':
-                                    # print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
-                                    if rowvalue.find(condtest) >= 0: condmet = True
-                                case 'search':
-                                    if re.search(condtest, rowvalue): condmet = True
-                            if condmet:
-                                value = condition['ValueIfTrue']
-                                break
-                            else: value = condition['ValueIfFalse']
-
-                    else:
-                        value  = row[srcfield]
-                    match hbfield:
-                        case 'date': value = str2date(value, self.__map[hbfield]['format'])
+                    # conditions if any
+                    value = self.__match_conditions(row, hbfield, srcfield, srcpos)
 
                 # unmapped fields will be empty
                 else:
@@ -198,6 +179,9 @@ class Source(object):
             self.data.append(hbrow)
         # print(self.data)
 
+    '''
+    Export to HomeBank CSV file
+    '''
     def export(self, csvout):
         log(f"Export to file '{csvout}'.")
         hbfields = self.__map.keys()
@@ -207,14 +191,57 @@ class Source(object):
             for row in self.data:
                 csvwriter.writerow(row)
 
-'''
+        '''
+        Private: match conditions (used in parse_source method)
+        '''
+        def __match_conditions(self, csvin_row, hbfield, srcfield, srcpos):
+            if 'conditions' in self.__map[hbfield]:
+                # lastcondvalue = None
+                for condition in self.__map[hbfield]['conditions']:
+                    condtype  = condition['Method']
+                    if 'SourceField' in condition: condsrcfield = condition['SourceField']
+                    else:                          condsrcfield = srcfield
+                    if not 'CaseSensitive' in condition:
+                        condtest = condition['Test'].lower()
+                        rowvalue = csvin_row[condsrcfield].lower()
+                    else:
+                        condtest = condition['Test']
+                        rowvalue = csvin_row[condsrcfield]
+                    # if not lastcondvalue:
+                    condmet = False
+                    # match first condition met or none
+                    match condtype:
+                        case 'find':
+                            if rowvalue.find(condtest) >= 0: condmet = True
+                        case 'search':
+                            match = re.search(condtest, rowvalue)
+                            if match:
+                                condmet = True
+                                # replace value by matched group ?
+                                if condition['ValueIfTrue'][0] == '$':
+                                    condition['ValueIfTrue'] = match.group(int(condition['ValueIfTrue'][1:]))
+                    # set result value
+                    if condmet:
+                        value = condition['ValueIfTrue']
+                        break
+                    else: value = condition['ValueIfFalse']
+            else:
+                value  = csvin_row[srcfield]
+            match hbfield:
+                case 'date': value = str2date(value, self.__map[hbfield]['format'])
+            return value
 
+'''
+Test if a string starts with another string
+- source: string to search in
+- prefix: string to search for in source start
+- casesensitive: if set to false, set source and value to lower (default: True)
 '''
 def startswith(source, prefix, casesensitive = True):
     if casesensitive:
         return source[:len(prefix)] == prefix
     else:
-        return source.lower()[:len(prefix)] == prefix
+        return source.lower()[:len(prefix)] == prefix.lower()
 
 '''
 Write log to console (and file ?)
