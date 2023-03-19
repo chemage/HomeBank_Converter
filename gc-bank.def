@@ -28,6 +28,8 @@
             <Condition Method="find" Test="VOénergies - Net+ Internet" ValueIfTrue="VOénergies Orbe" ValueIfFalse="" />
             <Condition Method="find" Test="TCS" ValueIfTrue="Touring Club Suisse" ValueIfFalse="" />
             <Condition Method="find" Test="SAN - " ValueIfTrue="Service des automobiles et de la navigation" ValueIfFalse="" />
+            <Condition Method="search" Test="^(.*?)\ \-\ " ValueIfTrue="$1" ValueIfFalse="" />
+            <Condition Method="search" Test="^(\w*?)$" ValueIfTrue="$1" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="4" Name="memo" />

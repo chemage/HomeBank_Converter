@@ -15,6 +15,8 @@ from xml.sax.saxutils import quoteattr, unescape # for searching quoted text att
 from xml.dom import minidom            # for exporting pretty XML
 from datetime import date, datetime, timedelta
 
+DEBUG = False
+
 
 '''
 Colors for output in linux/python
@@ -108,7 +110,7 @@ class Definition(object):
             }
             if len(conditions) > 0:
                 self.mapping[hbfield]['conditions'] = []
-                # print("conditions:", len(conditions), conditions)
+                # debug("conditions:", len(conditions), conditions)
                 for condition in conditions:
                     condattr = {}
                     for attr in condition.attrib:
@@ -159,15 +161,17 @@ class Source(object):
     '''
     def parse_source(self, csvreader):
         for row in csvreader:
+            debug(f"ROW: {str(row)}")
             hbrow = {}
             for hbfield in self.__map:
                 srcfield = self.__map[hbfield]['srcname']
+                debug(f"\tFIELD: {hbfield}")
 
                 # mapped fields
                 srcpos = self.__map[hbfield]['srcpos']
                 if srcpos >= 0:
                     # conditions if any
-                    value = self.__match_conditions(row, hbfield, srcfield, srcpos)
+                    value = self.__match_conditions(row, hbfield, srcfield)
 
                 # unmapped fields will be empty
                 else:
@@ -177,7 +181,7 @@ class Source(object):
 
                 hbrow[hbfield] = value
             self.data.append(hbrow)
-        # print(self.data)
+        # debug(self.data)
 
     '''
     Export to HomeBank CSV file
@@ -191,45 +195,66 @@ class Source(object):
             for row in self.data:
                 csvwriter.writerow(row)
 
-        '''
-        Private: match conditions (used in parse_source method)
-        '''
-        def __match_conditions(self, csvin_row, hbfield, srcfield, srcpos):
-            if 'conditions' in self.__map[hbfield]:
-                # lastcondvalue = None
-                for condition in self.__map[hbfield]['conditions']:
-                    condtype  = condition['Method']
-                    if 'SourceField' in condition: condsrcfield = condition['SourceField']
-                    else:                          condsrcfield = srcfield
-                    if not 'CaseSensitive' in condition:
-                        condtest = condition['Test'].lower()
-                        rowvalue = csvin_row[condsrcfield].lower()
-                    else:
-                        condtest = condition['Test']
-                        rowvalue = csvin_row[condsrcfield]
-                    # if not lastcondvalue:
-                    condmet = False
-                    # match first condition met or none
-                    match condtype:
-                        case 'find':
-                            if rowvalue.find(condtest) >= 0: condmet = True
-                        case 'search':
-                            match = re.search(condtest, rowvalue)
-                            if match:
-                                condmet = True
-                                # replace value by matched group ?
-                                if condition['ValueIfTrue'][0] == '$':
-                                    condition['ValueIfTrue'] = match.group(int(condition['ValueIfTrue'][1:]))
-                    # set result value
-                    if condmet:
-                        value = condition['ValueIfTrue']
-                        break
-                    else: value = condition['ValueIfFalse']
-            else:
-                value  = csvin_row[srcfield]
-            match hbfield:
-                case 'date': value = str2date(value, self.__map[hbfield]['format'])
-            return value
+    '''
+    Private: match conditions for a field in a row (used in parse_source method)
+    - csvin_row: source CSV row to use for mapping
+    - hbfield:   HomeBank field name
+    - srcfield:  source field name for field to field mapping (can change according to condition)
+    '''
+    def __match_conditions(self, csvin_row, hbfield, srcfield):
+        if 'conditions' in self.__map[hbfield]:
+            # lastcondvalue = None
+            for condition in self.__map[hbfield]['conditions']:
+                condtype = condition['Method']
+                condtest = condition['Test']
+
+                # set specific source field mapping for this condition
+                if 'SourceField' in condition: condsrcfield = condition['SourceField']
+                else:                          condsrcfield = srcfield
+
+                # initialize some vars
+                condmet    = False
+                re_replace = None
+
+                # match first condition met or none
+                match condtype:
+                    case 'find':
+                        # set case sensitive search if set (default is unset/False)
+                        if not 'CaseSensitive' in condition:
+                            condtest = condition['Test'].lower()
+                            rowvalue = csvin_row[condsrcfield].lower()
+
+                        # if found value will be assigned later
+                        if rowvalue.find(condtest) >= 0: condmet = True
+                    case 'search':
+                        srcfieldval = csvin_row[condsrcfield]
+                        match = re.search(condtest, srcfieldval)
+                        debug(f"\t\tRE.SEARCH: match '{condtest}' against '{str(srcfieldval)}'")
+                        if match:
+                            condmet = True # if met value will be assigned later
+
+                            # replace value by matched group if necessary ($ at start of ValueIfTrue)
+                            if condition['ValueIfTrue'][0] == '$':
+                                re_replace = match.group(int(condition['ValueIfTrue'][1:]))
+                                debug(f"\t\t{str(srcfieldval)} => {re_replace}")
+
+                # set result value
+                if condmet:
+                    if re_replace: value = re_replace
+                    else: value = condition['ValueIfTrue']
+                    break
+                else: value = condition['ValueIfFalse']
+
+        # set complete field value if no condition specified
+        else:
+            value  = csvin_row[srcfield]
+
+        # special conditions for date field
+        if hbfield == 'date': value = str2date(value, self.__map[hbfield]['format'])
+
+        debug(f"\t\t{hbfield} => {srcfield} => {str(csvin_row[srcfield])} => {value}")
+        # return value for mapped field
+        return value
 
 '''
 Test if a string starts with another string
@@ -242,6 +267,14 @@ def startswith(source, prefix, casesensitive = True):
         return source[:len(prefix)] == prefix
     else:
         return source.lower()[:len(prefix)] == prefix.lower()
+
+
+'''
+Write debug message to console if DEBUG is set to true
+'''
+def debug(msg, DEBUG = DEBUG):
+    if DEBUG: print(msg)
+
 
 '''
 Write log to console (and file ?)
@@ -329,12 +362,7 @@ if __name__ == "__main__":
             errorcode = ErrorCodes.CSVEXPORT
             exception = e
 
-    # display transformed data
-    # print()
-    # log("List of HomeBank transactions")
-    # for row in src.data:
-    #     print(row)
-
+    # end of script
     if errorcode == ErrorCodes.SUCCESS:
         log("Execution completed successfully.")
     else:

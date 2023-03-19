@@ -37,6 +37,8 @@ The order of the conditions is important. Search finishes when a condition is me
    - CaseSensitive: add the attribute to search with case sensitive
    - default case: not case sensitive
 - search: use a regular expression to lookup for contents (https://docs.python.org/3/library/re.html)
+   - to replace the value by the search text, use a set of parenthesis () to group your result.
+   - to retrieve the result set the number of your group (usually 1) prefixed by a dollar sign $ in ValueIfTrue.
 
 ### Example GnuCash
 <details>
