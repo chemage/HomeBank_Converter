@@ -33,6 +33,7 @@
             <Condition Method="find" Test="Donation" ValueIfTrue="Charitable Donations" ValueIfFalse="" />
             <Condition Method="find" Test="Marché" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="Lessive" ValueIfTrue="Housold:Laundry" ValueIfFalse="" />
+            <Condition Method="search" Test="[EÉé]picerie" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="Retrait" ValueIfTrue="&gt; Raiffeisen Privé Sociétaire" ValueIfFalse="" />
         </Field>
         <Field>
@@ -42,6 +43,7 @@
             <Condition Method="find" Test="Coop" ValueIfTrue="Supermarket" ValueIfFalse="" />
             <Condition Method="find" Test="Migros" ValueIfTrue="Supermarket" ValueIfFalse="" />
             <Condition Method="find" Test="Denner" ValueIfTrue="Supermarket" ValueIfFalse="" />
+            <Condition Method="search" Test="[EÉé]picerie" ValueIfTrue="GroceryStore" ValueIfFalse="" />
         </Field>
     </Fields>
 </Definition>

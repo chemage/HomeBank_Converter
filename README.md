@@ -32,8 +32,9 @@ optional arguments:
 Conditions allow to fill different fields based on another value.
 The order of the conditions is important. Search finishes when a condition is met.
 
-#### Functions
+#### Methods
 - find: find text in a string
+- search: use a regular expression to lookup for contents (https://docs.python.org/3/library/re.html)
 
 ### Example GnuCash
 <details>

@@ -54,18 +54,17 @@
             <Condition Method="find" Test="Migros" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="Boulangerie" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="Boucherie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Method="match" Test="[EÉé]picerie" ValueIfTrue="Food" ValueIfFalse="" />
-            <Condition Method="find" Test="La Fée d'Or" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="search" Test="[EÉé]picerie" ValueIfTrue="Food" ValueIfFalse="" />
             <Condition Method="find" Test="SAN - " ValueIfTrue="Vehicles:SAN" ValueIfFalse="" />
             <Condition Method="find" Test="TCS" ValueIfTrue="Insurance:Travel" ValueIfFalse="" />
             <Condition Method="find" Test="ECA" ValueIfTrue="Insurance:Home-owner's/Renter's" ValueIfFalse="" />
             <Condition Method="find" Test="Ochsner Sport" ValueIfTrue="Hobbies/Leisure:Sporting Goods" ValueIfFalse="" />
             <Condition Method="find" Test="Sarah Allenbach" ValueIfTrue="Household:House Cleaning" ValueIfFalse="" />
             <Condition Method="find" Test="Jumbo" ValueIfTrue="Hobbies/Leisure:Gardening" ValueIfFalse="" />
-            <Condition Method="find" Test="Restaurant" ValueIfTrue="Hobbies/Leisure:Restaurant" ValueIfFalse="" />
-            <Condition Method="find" Test="La Capsule" ValueIfTrue="Hobbies/Leisure:Craft Beer" ValueIfFalse="" />
-            <Condition Method="find" Test="La Cave à Bière" ValueIfTrue="Hobbies/Leisure:Craft Beer" ValueIfFalse="" />
-            <Condition Method="find" Test="bière" ValueIfTrue="Hobbies/Leisure:Bar" ValueIfFalse="" />
+            <Condition Method="find" Test="Restaurant" ValueIfTrue="Food" ValueIfFalse="" />
+            <Condition Method="find" Test="La Capsule" ValueIfTrue="Drinks" ValueIfFalse="" />
+            <Condition Method="find" Test="bière" ValueIfTrue="Drinks" ValueIfFalse="" />
+            <Condition Method="find" Test="jus" ValueIfTrue="Drinks" ValueIfFalse="" />
             <Condition Method="find" Test="Retrait" ValueIfTrue="&lt; Cash" ValueIfFalse="" />
             <Condition Method="find" Test="Taxe annuelle carte Maestro" ValueIfTrue="Bank Charges:Service Charges" ValueIfFalse="" />
             <Condition Method="find" Test="cadeau" ValueIfTrue="Gifts" ValueIfFalse="" />
@@ -79,7 +78,10 @@
             <Condition Method="find" Test="Coop" ValueIfTrue="Supermarket" ValueIfFalse="" />
             <Condition Method="find" Test="Migros" ValueIfTrue="Supermarket" ValueIfFalse="" />
             <Condition Method="find" Test="Denner" ValueIfTrue="Supermarket" ValueIfFalse="" />
-            <Condition Method="match" Test="[EÉé]picerie" ValueIfTrue="Grocery" ValueIfFalse="" />
+            <Condition Method="search" Test="[EÉé]picerie" ValueIfTrue="GroceryStore" ValueIfFalse="" />
+            <Condition Method="find" Test="Restaurant" ValueIfTrue="Restaurant" ValueIfFalse="" />
+            <Condition Method="find" Test="La Capsule" ValueIfTrue="CraftBeer" ValueIfFalse="" />
+            <Condition Method="find" Test="bière" ValueIfTrue="CraftBeer" ValueIfFalse="" />
             <Condition Method="find" Test="Louis" ValueIfTrue="Family" ValueIfFalse="" />
             <Condition Method="find" Test="Charly" ValueIfTrue="Family" ValueIfFalse="" />
             <Condition Method="find" Test="Béatrice" ValueIfTrue="Family" ValueIfFalse="" />

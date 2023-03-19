@@ -166,22 +166,18 @@ class Source(object):
                             if 'SourceField' in condition: condsrcfield = condition['SourceField']
                             else:                          condsrcfield = srcfield
                             # if not lastcondvalue:
+                            condmet = False
                             match condtype:
                                 case 'find':
                                     # print(f"'{condtest}', '{row[srcfield]}', '{row[srcfield].find(condtest)}'")
-                                    if row[condsrcfield].find(condtest) >= 0:
-                                        value = condition['ValueIfTrue']
-                                        break
-                                        # lastcondvalue = value
-                                    else:
-                                        value = condition['ValueIfFalse']
-                                case 'match':
-                                    if re.match(condtest, row[condsrcfield]):
-                                        value = condition['ValueIfTrue']
-                                        break
-                                    else:
-                                        value = condition['ValueIfFalse']
-                                        
+                                    if row[condsrcfield].find(condtest) >= 0: condmet = True
+                                case 'search':
+                                    if re.search(condtest, row[condsrcfield]): condmet = True
+                            if condmet:
+                                value = condition['ValueIfTrue']
+                                break
+                            else: value = condition['ValueIfFalse']
+
                     else:
                         value  = row[srcfield]
                     match hbfield:
