@@ -10,7 +10,7 @@
             <HomeBank Position="1" Name="payment" />
             <Source Position="4" Name="Full Category Path" />
             <Condition Method="find" ValueIfTrue="4" ValueIfFalse="6" Test="Assets:Current Assets:Bank Accounts" />
-            <Condition Method="find" ValueIfTrue="3" ValueIfFalse="6" Test="Assets:Current Assets:Wallets:Switzerland" />
+            <Condition Method="find" ValueIfTrue="4" ValueIfFalse="6" Test="Assets:Current Assets:Wallets:Switzerland" />
             <Condition Method="find" ValueIfTrue="10" ValueIfFalse="6" Test="Expenses:Bank Service Charge" />
         </Field>
         <Field>
@@ -42,6 +42,7 @@
         <Field>
             <HomeBank Position="6" Name="category" />
             <Source Position="3" Name="Description" />
+            <Condition Method="search" SourceField="Full Category Path" Test="Assets\:Current Assets\:.*?\:(.*)$" ValueIfTrue="$1" ValueIfFalse="" />
             <Condition Method="find" Test="BNC - salaire" ValueIfTrue="Wage &amp; Salary:Net Pay" ValueIfFalse="" />
             <Condition Method="find" Test="loyer" ValueIfTrue="Bills:Rent" ValueIfFalse="" />
             <Condition Method="find" Test="Visana - LAMal et complémentaires" ValueIfTrue="Insurance:Health" ValueIfFalse="" />

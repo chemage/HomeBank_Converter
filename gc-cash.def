@@ -9,7 +9,7 @@
         <Field>
             <HomeBank Position="1" Name="payment" />
             <Source Position="4" Name="Full Category Path" />
-            <Condition Method="find" ValueIfTrue="9" ValueIfFalse="3" Test="Assets:Current Assets:Bank Accounts" />
+            <Condition Method="find" ValueIfTrue="4" ValueIfFalse="3" Test="Assets:Current Assets:Bank Accounts" />
         </Field>
         <Field>
             <HomeBank Position="2" Name="info" />
