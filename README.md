@@ -159,13 +159,8 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 ![Export Settings](/doc/gnucash-exportsettings.png)
 ![Export Settings](/doc/gnucash-daterange.png)
 
-## TODO
-
-- Correct TRANSFER transactions => MATCH other account if asset
-- Add option to merge to existing CSV file.
-- Add option to double transactions for account to account transfers.
-
 ## Limitations
 
 - Script does not accept multi-line CSV sources.
 - No payment method information.
+- Transfers cannot be imported (not supported by HomeBank)
