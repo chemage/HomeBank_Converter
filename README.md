@@ -160,6 +160,7 @@ The most compatible to this script is the below.
 
 <details>
 <summary>Click to display the details</summary>
+
 - File > Export > Export Transactions to CSV
 - Choose Export Settings:
    - Options: Simple layout - mandatory
