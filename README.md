@@ -1,6 +1,10 @@
 # HomeBank CSV Converter
 Convert CSV to HomeBank import files
 
+## Prerequisites
+- Minimum version: Python 3.10 (use of match)
+- module colorama (pip install colorama)
+
 ## Usage
 usage: convert-to-homebank-csv.py [-h] csvin csvout xmldef
 
