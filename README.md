@@ -1,6 +1,10 @@
 # HomeBank CSV Converter
 Convert CSV to HomeBank import files
 
+## Prerequisites
+- Minimum version: Python 3.10 (use of match)
+- module colorama (pip install colorama)
+
 ## Usage
 usage: convert-to-homebank-csv.py [-h] csvin csvout xmldef
 
@@ -149,6 +153,13 @@ Exports have to be one line per transaction.
 Python CSV DictReader is used, so quotes are not specifically necessary.
 
 ### GnuCash Export
+
+Gnucash exports can be done in various ways.
+
+The most compatible to this script is the below.
+
+<details>
+<summary>Click to display the details</summary>
 - File > Export > Export Transactions to CSV
 - Choose Export Settings:
    - Options: Simple layout - mandatory
@@ -158,6 +169,7 @@ Python CSV DictReader is used, so quotes are not specifically necessary.
 
 ![Export Settings](/doc/gnucash-exportsettings.png)
 ![Export Settings](/doc/gnucash-daterange.png)
+</details>
 
 ## Limitations
 
