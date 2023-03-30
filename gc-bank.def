@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<Definition Name="Raiffeisen">
+<Definition Name="GnuCash Bank">
     <CsvDefinitions Delimiter=";" HeaderLineCount="1" Encoding="utf8" />
     <Fields>
         <Field>

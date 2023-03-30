@@ -163,6 +163,7 @@ The most compatible to this script is the below.
 
 <details>
 <summary>Click to display the details</summary>
+
 - File > Export > Export Transactions to CSV
 - Choose Export Settings:
    - Options: Simple layout - mandatory
@@ -174,13 +175,8 @@ The most compatible to this script is the below.
 ![Export Settings](/doc/gnucash-daterange.png)
 </details>
 
-## TODO
-
-- Correct TRANSFER transactions => MATCH other account if asset
-- Add option to merge to existing CSV file.
-- Add option to double transactions for account to account transfers.
-
 ## Limitations
 
 - Script does not accept multi-line CSV sources.
 - No payment method information.
+- Transfers cannot be imported (not supported by HomeBank)
