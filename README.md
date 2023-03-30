@@ -68,7 +68,10 @@ The order of the conditions is important. Search finishes when a condition is me
         </Field>
         <Field>
             <HomeBank Position="3" Name="payee" />
-            <Source Position="-1" Name="N/A" />
+            <Source Position="3" Name="Description" />
+            <!-- Example if payee is always the first word followed by ' - ' or the only word (second condition) -->
+            <Condition Method="search" Test="^(.*?)\ \-\ " ValueIfTrue="$1" ValueIfFalse="" />
+            <Condition Method="search" Test="^(\w*?)$" ValueIfTrue="$1" ValueIfFalse="" />
         </Field>
         <Field>
             <HomeBank Position="4" Name="memo" />
